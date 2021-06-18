@@ -1,53 +1,79 @@
 import React, { Component } from 'react';
 import {connect} from'react-redux';
-import {FETCHSTREAMS} from'../../action/index'
+import {FETCHSTREAMS} from'../../action/index';
+import {Link} from 'react-router-dom';
+
 class Liststream extends Component {
-      
+    state={
+        streams:[]
+    }
 componentDidMount(){
+  
+    
     this.props.FETCHSTREAMS()
+    
+    
 }
+
 
 renderadmin(stream){
+    if(stream){
+        if(stream.userId===this.props.currentUser){
+            return(
+        
+                <div className=" ui ">
+                 <Link className="ui button primary ui right floated button " to={`/stream/edit/${stream._id}`} >EDIT</Link>  
+                    <button className="ui button negative right floated button">DELETE</button>
+                </div>
+            )
+        }
+    }
     
-if(stream.userId===this.props.currentUser){
-    return(
 
-        <div className=" ui ">
-            <button className="ui button primary ui right floated button ">EDIT</button>
-            <button className="ui button negative right floated button">DELETE</button>
-        </div>
-    )
-}
 
 }
 
 renderCreateButton({isSignin}){
     if(isSignin===true){
-        return(<div><button className=" ui button warning ui right floated button">Create Stream</button></div>)
+        return(<div>
+            
+            <Link to="/stream/new">
+          
+            <button className=" ui button positive ui right floated button">  Create Stream</button>
+            
+            </Link>
+            </div>)
     }
+   
  
 
 }
+
 renderview(){
-  return( this.props.streams.map((stream)=>{
-      return(
-<div>
-<div className="item" key={stream._id}>
-   {this.renderadmin(stream)}
-  <i className=" large middle aligned icon camera"></i>
-  <div className="content">
+
+    if(this.props.streams){
+       
+        return( this.props.streams.map((stream)=>{
+            return(
+      <div>
+      <div className="item"  key={stream._id}>
+         {this.renderadmin(stream)}
+        <i className=" large middle aligned icon camera"></i>
+        <div className="content">
+            
+            {stream.title}
+        <div className="description">{stream.description}</div>
       
-      {stream.title}
-  <div className="description">{stream.description}</div>
-
-  </div>
-  
+        </div>
+        
+       
+      </div>
+      
+      </div>
+            )
+          })) 
+    }
  
-</div>
-
-</div>
-      )
-    })) 
 
 
 }
@@ -62,8 +88,11 @@ renderview(){
              <div className="right floated">{this.renderCreateButton(this.props)}</div>
         </div> );
     }
+   
 }
 const mapStateToProps=(state)=>{
+
+    
 return{streams:Object.values(state.streams),
 currentUser:state.authReducer.userId,
 isSignin:state.authReducer.isSingIN

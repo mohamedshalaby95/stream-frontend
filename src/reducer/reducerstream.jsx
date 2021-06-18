@@ -6,11 +6,11 @@ export const reducerstreams= (state={},action)=>{
     switch(action.type){
 
       case createstream:
-      return ({...state,[action.payload.id]:action.id})
+      return ({...state,[action.payload._id]:action.payload})
       case editstream:
-        return ({...state,[action.payload.id]:action.id})
+        return ({...state,[action.payload._id]:action.payload})
        case fetchstream:
-            return ({...state,[action.payload.id]:action.id})
+            return ({...state,[action.payload._id]:action.payload})
             case fetchstreams:
                 return {...state,..._.mapKeys(action.payload,'_id')}
 

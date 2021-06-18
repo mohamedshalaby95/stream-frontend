@@ -1,5 +1,6 @@
 import {signin,signout,createstream,editstream,deletestream,fetchstream,fetchstreams} from './type';
-import streamsApi from'../apis/stream'
+import streamsApi from'../apis/stream';
+import history from '../history';
 
  export const SINGIN=(userid) =>{
 
@@ -24,23 +25,26 @@ export const CREATESTREAM=(formvalues)=>
        if(userId===null){
            userId="null"
        }
-       console.log(userId)
          const response=await streamsApi.post('/stream',{...formvalues,userId});
          console.log(response)
          dispath({type:createstream,payload:response.data})
+        history.push('/')
     }
 
 
     export const EDITSTREAM=(formvalues,id)=>
 
     async (dispath)=>{
-          const response=await streamsApi.PUT(`/stream/${id}`,formvalues);
+          const response=await streamsApi.patch(`/stream/${id}`,formvalues);
           dispath({type:editstream,payload:response.data})
+          history.push('/')
      }
      export const FETCHSTREAM=(id)=>
 
    async (dispath)=>{
+       
          const response=await streamsApi.get(`/stream/${id}`);
+         console.log(response)
          dispath({type:fetchstream,payload:response.data})
     }
 
