@@ -60,6 +60,7 @@ export const CREATESTREAM=(formvalues)=>
      async (dispath)=>{
            const response=await streamsApi.delete(`/stream/${id}`);
            dispath({type:deletestream,payload:id})
+           history.push('/')
       }
 
 

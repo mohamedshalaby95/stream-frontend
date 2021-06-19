@@ -37,7 +37,7 @@ const App = () => {
        < Route path='/stream/new' component={Createstream} / >
       
 
-       < Route path='/stream/delete' component={Deletestream} / >
+       < Route path='/stream/delete/:id' component={Deletestream} / >
        < Route path='/stream/edit/:id' component={Editestream} / >
        <Route path='/notfound'  component={Notfound}/>
        <Redirect to="/notfound"  />

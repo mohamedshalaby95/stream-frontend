@@ -23,7 +23,7 @@ renderadmin(stream){
         
                 <div className=" ui ">
                  <Link className="ui button primary ui right floated button " to={`/stream/edit/${stream._id}`} >EDIT</Link>  
-                    <button className="ui button negative right floated button">DELETE</button>
+                    <Link to={`/stream/delete/${stream._id}`}className="ui button negative right floated button">DELETE</Link>
                 </div>
             )
         }
