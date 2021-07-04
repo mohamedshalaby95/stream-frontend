@@ -4,9 +4,7 @@ import {FETCHSTREAMS} from'../../action/index';
 import {Link} from 'react-router-dom';
 
 class Liststream extends Component {
-    state={
-        streams:[]
-    }
+    
 componentDidMount(){
   
     
@@ -39,7 +37,10 @@ renderCreateButton({isSignin}){
             
             <Link to="/stream/new">
           
-            <button className=" ui button positive ui right floated button">  Create Stream</button>
+            <button className={`ui button positive ui right floated button
+            
+            ${this.props.isSignin==false?'disable':''}
+            `}>  Create Stream</button>
             
             </Link>
             </div>)
